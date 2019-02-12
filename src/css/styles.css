@@ -3,6 +3,12 @@
 * {
   box-sizing: border-box;
 }
+:root {
+  --color-main: #114154;
+  --color-main-dark: #08202a;
+  --color-main-light: #88a0a9;
+  --color-secondary: #fff;
+}
 body, html {
   margin: 0;
   padding: 0;
@@ -11,20 +17,131 @@ body {
   font-family: 'Niconne', serif;
   font-size: 150%;
 }
+.dark-overlay {
+  top: 0;
+  left: 0;
+  width: 100%;
+  bottom: 0;
+  background-image: url('../images/overlay.png');
+  background-size: cover;
+  background-position: center;
+  pointer-events: none;
+  position: fixed;
+  z-index: -1;
+  content: "";
+  display: block;
+  opacity: 0;
+  transition: all 1s;
+}
+.input-dark {
+  position: absolute;
+  transform: translateX(-100vw);
+}
+.input-dark-button {
+  position: absolute;
+  z-index: 21;
+  right: 0;
+  top: 0;
+  padding: 0.5rem;
+  display: table;
+  text-align: right;
+  background-color: var(--color-main-dark);
+  color: var(--color-main-light);
+}
+.input-dark:checked + .dark-overlay {
+  opacity: 1;
+  z-index: 20;
+}
 h1,h2,h3,h4,h5,h6,blockquote {
   font-family: 'IM Fell DW Pica', serif;
   font-weight: 900;
 }
 blockquote {
   font-weight: 400;
+  padding: 0;
+  margin: 0;
+}
+p {
+  max-width: 40rem;
 }
 
-
+main {
+  height: 100vh;
+  background-color: var(--color-main);
+  transform-style: preserve-3d;
+}
 /* === GRID === */
-.grid {
+.grid__item {
   display: grid;
-  grid-template-columns: repeat(5,1fr);
+  grid-template-columns: [full-start] minmax(0.5rem, 1fr) [main-start] minmax(1rem, 10rem) [content-start] minmax(16rem, 40rem) [content-end] minmax(1rem, 10rem) [main-end] minmax(0.5rem, 1fr) [full-end];
 }
+.grid__item > * {
+  grid-column: content;
+}
+.grid__child--full {
+  grid-column: full;
+}
+.grid__child--main {
+  grid-column: main;
+}
+.grid__child--left {
+  grid-column: 2 / span 2;
+}
+.grid__child--right {
+  grid-column: 3 / span 2;
+}
+/* === Parralax === */
+/* SOURCE: */
+.parralax-holder {
+  perspective: 100px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transform-style: preserve-3d;
+}
+.parralax__layer{
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: -20px;
+}
+.parralax__layer-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.parralax__layer__0 {
+  transform: translateZ(calc(-100px * (8 / 2))) scale(calc((8 / 2) + 1));
+}
+.parralax__layer__1 {
+  transform: translateZ(calc(-100px * (7 / 2))) scale(calc((7 / 2) + 1));
+}
+.parralax__layer__2 {
+  transform: translateZ(calc(-100px * (6 / 2))) scale(calc((6 / 2) + 1));
+}
+.parralax__layer__3 {
+  transform: translateZ(calc(-100px * (5 / 2))) scale(calc((5 / 2) + 1));
+}
+.parralax__layer__4 {
+  transform: translateZ(calc(-100px * (4 / 2))) scale(calc((4 / 2) + 1));
+}
+.parralax__layer__5 {
+  transform: translateZ(calc(-100px * (3 / 2))) scale(calc((3 / 2) + 1));
+}
+.parralax__layer__6 {
+  transform: translateZ(calc(-100px * (2 / 2))) scale(calc((2 / 2) + 1));
+}
+.parralax__layer__7 {
+  transform: translateZ(calc(-100px * (1 / 2))) scale(calc((1 / 2) + 1));
+}
+/* END SOURCE */
 
 /* === GLITCH === */
 /* SOURCE: Chris Coyier for https://css-tricks.com/glitch-effect-text-images-svg/ */
@@ -35,16 +152,18 @@ blockquote {
 .glitch::after {
   content: attr(data-text);
   position: absolute;
+  font-family: sans-serif;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
+  background: var(--color-main-dark);
+  color: var(--color-secondary);
   z-index: 1;
 }
 .glitch::before {
   left: 7px; /*2px*/
   text-shadow: -1px 0 red;
-  background: white;
   clip: rect(44px, 450px, 56px, 0);
   animation: glitch-anim 2s infinite linear alternate-reverse;
 
@@ -52,12 +171,14 @@ blockquote {
 .glitch::after {
   left: -3px; /*-2px*/
   text-shadow: -1px 0 blue;
-  background: white;
   animation: glitch-anim-2 3s infinite linear alternate-reverse;
 
 }
 
 .glitch-img {
+  transform-style: inherit;
+  transform: translateZ(-25px) scale(.9);
+  transform-origin: 50% 100%;
   position: relative;
   content: "";
   width: 100%;
@@ -65,7 +186,27 @@ blockquote {
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  animation: glitch-img 3s infinite linear alternate-reverse;
+  overflow-x: hidden;
+}
+
+.glitch-img__hovertext {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  bottom: 0;
+  background-color: var(--color-main-dark);
+  color: var(--color-main-light);
+  transform: translateX(-100%);
+  transition: all 0.3s;
+  z-index: 3;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.glitch-img:hover .glitch-img__hovertext {
+  transform: translateX(0);
 }
 .glitch-img__glitch {
   z-index: 1;
@@ -78,97 +219,174 @@ blockquote {
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  animation: glitch-anim 5s infinite linear alternate-reverse;
+  animation: glitch-anim 1.5s infinite linear alternate-reverse;
 }
 .glitch-img__glitch--secondary {
-  filter: hue-rotate(90deg);
-  animation: glitch-anim-2 6s infinite linear alternate-reverse;
+  animation: glitch-anim-2 2.5s infinite linear alternate-reverse;
 }
 /* END SOURCE */
 
-/* === ARTICLE === */
-.article {
+/* === SCROLLTEXT === */
+.scrolltext {
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  display: flex;
+  transform: translateZ(25px) scale(0.75);
+}
+.scrolltext__list {
+  padding: 0;
+  display: inline-flex;
+  list-style-type: none;
+  justify-content: space-between;
+  animation: marquee 30s linear infinite
+}
+.scrolltext__list > * {
+  padding: 0 1.5rem;
+}
+
+/* === SLIDER === */
+.slider {
+  display: flex;
+  overflow-x: scroll;
+  padding-bottom: 1rem;
+  max-height: 70vh;
+  overflow-y: scroll;
+  background-color: var(--color-main-dark);
+  color: var(--color-main-light);
 
 }
-.article__title--main {
-  grid-column: span 5;
+.slider__slide {
+  min-width: 100%;
+  position: relative;
+  padding: 2rem;
 }
+
+/* === ARTICLE === */
+.article__header {
+  position: relative;
+}
+/* .article__header__scroll-button {
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+}
+.article__header__scroll-button-input {
+  position: absolute;
+  left: -100vw;
+  pointer-events: none;
+} */
+.article__header__content-holder {
+  position: relative;
+  height: 90vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: height 1s ease-in-out;
+}
+
+/* .article__header__scroll-button-input:checked + .article__header__content-holder {
+  height: 0;
+} */
+
 .article__section {
-  padding: 0 1rem;
+  position: relative;
+  background-color: var(--color-main);
+  color: var(--color-secondary);
+  padding: 6rem 0 9rem;
+}
+.article__section::before {
+  content: "";
+  display: block;
+  position: absolute;
+  height: 5rem;
+  top: -2.5rem;
+  left: 0;
+  width: 100%;
+  background-color: var(--color-main);
+  transform: rotate(-2deg);
+}
+.article__section:nth-of-type(even) {
+  background-color: var(--color-main-light);
+  color: var(--color-main-dark);
+}
+.article__section:nth-of-type(even)::before {
+  background-color: var(--color-main-light);
+  transform: rotate(2deg);
+}
+.article__section-parralax-before::before {
+  top: -60vh;
+  background-color: transparent;
+  background-image: url('../images/bg/parralax_layer_section_bg.png');
+  background-position: center bottom;
+  background-size: cover;
+  background-repeat: no-repeat;
+  pointer-events: none;
+  width: calc(100vw + 4px);
+  left: -2px;
+  height: calc(60vh + 4px);
+  transform: rotate(0deg);
+}
+.article__section--full-height {
+  min-height: 100vh;
+}
+/* === FOOTER === */
+.footer {
+  text-align: center;
+  padding: 2rem;
 }
 
 /* === ANIMATIONS === */
-@keyframes glitch-img {
-  0% {
-    transform: rotate(-2deg);
-    filter: drop-shadow(16px 16px 20px rgba(0,0,0,0.2)) hue-rotate(-30deg);
-  }
-  30% {
-    transform: rotate(1deg);
-    filter: hue-rotate(90deg);
-  }
-  40% {
-    transform: rotate(-1deg);
-    filter: none;
-  }
+@keyframes marquee {
+    0% {
+        transform: translate(0,0)
+    }
+
+    100% {
+        transform: translate(-100%,0)
+    }
 }
 @keyframes glitch-anim {
   0% {
     clip-path: inset(51% 0 38% 0);
   }
-  20% {
+  10% {
     clip-path: inset(20% 0 69% 0);
   }
-  40% {
+  32% {
     clip-path: inset(76% 0 3% 0);
   }
-  60% {
+  38% {
     clip-path: inset(100% 0 78% 0);
   }
-  80% {
+  /* 80% {
     clip-path: inset(80% 0 13% 0);
-  }
+  } */
   100% {
-    clip-path: inset(50% 0 40% 0);
+    clip-path: inset(100% 0 100% 0);
   }
 }
 @keyframes glitch-anim-2 {
   0% {
     clip-path: inset(11% 0 80% 0);
   }
-  20% {
+  13% {
     clip-path: inset(3% 0 92% 0);
   }
-  40% {
+  27% {
     clip-path: inset(89% 0 3% 0);
   }
-  60% {
+  40% {
     clip-path: inset(20% 0 30% 0);
   }
-  80% {
+  /* 80% {
     clip-path: inset(95% 0 1% 0);
-  }
+  } */
   100% {
-    clip-path: inset(1% 0 75% 0);
+    clip-path: inset(100% 0 100% 0);
   }
 }
-/* @keyframes glitch-anim-2 {
-  0% {
-    clip: rect(31px, 450px, 24px, 0);
-  }
-  20% {
-    clip: rect(67px, 450px, 90px, 0);
-  }
-  40% {
-    clip: rect(11px, 450px, 2px, 0);
-  }
-  60% {
-    clip: rect(52px, 450px, 12px, 0);
-  }
-  80% {
-    clip: rect(21px, 450px, 89px, 0);
-  }
-  100% {
-    clip: rect(73px, 450px, 5px, 0);
-  }
-} */
