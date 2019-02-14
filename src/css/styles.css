@@ -173,6 +173,7 @@ main {
   color: var(--color-main-light);
   text-transform: lowercase;
   transition: all 0.3s;
+  cursor: pointer;
 }
 .input-dark:checked ~ .input-dark-button {
   background-color: var(--color-unholy-dark);
@@ -192,6 +193,17 @@ main {
 } */
 .input-dark:checked ~ .article .section-holder, .input-dark:checked ~ .article .parralax {
   mix-blend-mode: luminosity;
+}
+.article__title-sub {
+  opacity: 0;
+  max-width: 0;
+  overflow-x: hidden;
+  white-space: nowrap;
+  transition: all 0.3s;
+}
+.input-dark:checked ~ .article .article__title-sub {
+  opacity: 1;
+  max-width: 5rem;
 }
 .input-dark:checked ~ .article .glitch::before, .input-dark:checked ~ .article .glitch::after, .input-dark:checked ~ .article .glitch-img__glitch {
   display: block;
