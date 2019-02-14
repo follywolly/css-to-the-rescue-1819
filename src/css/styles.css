@@ -8,6 +8,8 @@
   --color-main-dark: #08202a;
   --color-main-light: #88a0a9;
   --color-secondary: #fff;
+  --color-unholy-dark: black;
+  --color-unholy-red: red;
 }
 body, html {
   margin: 0;
@@ -17,21 +19,143 @@ body {
   font-family: 'Niconne', serif;
   font-size: 150%;
 }
+h1,h2,h3,h4,h5,h6,blockquote {
+  font-family: 'IM Fell DW Pica', serif;
+  font-weight: 900;
+}
+blockquote {
+  font-weight: 400;
+  padding: 0;
+  margin: 0;
+}
+p {
+  max-width: 40rem;
+  z-index: 10;
+}
+
+main {
+  height: 100vh;
+  background-color: var(--color-main);
+  transform-style: preserve-3d;
+}
+/* === ARTICLE === */
+.article {
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-image: url('../images/unholy_bg.jpg');
+}
+.article__header {
+  position: relative;
+}
+/* .article__header__scroll-button {
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+}
+.article__header__scroll-button-input {
+  position: absolute;
+  left: -100vw;
+  pointer-events: none;
+} */
+.article__header__content-holder {
+  position: relative;
+  height: 90vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: height 1s ease-in-out;
+}
+
+/* .article__header__scroll-button-input:checked + .article__header__content-holder {
+  height: 0;
+} */
+
+.article__section {
+  position: relative;
+  background-color: var(--color-main);
+  color: var(--color-secondary);
+  padding: 6rem 0 9rem;
+}
+.article__section::before {
+  content: "";
+  display: block;
+  position: absolute;
+  height: 5rem;
+  top: -2.5rem;
+  left: 0;
+  width: 100%;
+  background-color: var(--color-main);
+  transform: rotate(-2deg);
+}
+.article__section:nth-of-type(even) {
+  background-color: var(--color-main-light);
+  color: var(--color-main-dark);
+}
+.article__section:nth-of-type(even)::before {
+  background-color: var(--color-main-light);
+  transform: rotate(2deg);
+}
+.article__section-parralax-before::before {
+  top: -60vh;
+  background-color: transparent;
+  background-image: url('../images/bg/parralax_layer_section_bg.png');
+  background-position: center bottom;
+  background-size: cover;
+  background-repeat: no-repeat;
+  pointer-events: none;
+  width: calc(100vw + 4px);
+  left: -2px;
+  height: calc(60vh + 4px);
+  transform: rotate(0deg);
+}
+.article__section--full-height {
+  min-height: 100vh;
+}
+/* === FOOTER === */
+.footer {
+  text-align: center;
+  padding: 2rem;
+}
+/* === BG OVERLAY === */
 .dark-overlay {
   top: 0;
   left: 0;
   width: 100%;
   bottom: 0;
-  background-image: url('../images/overlay.png');
+  /* background-image: url('../images/overlay.png');
   background-size: cover;
-  background-position: center;
+  background-position: center; */
   pointer-events: none;
   position: fixed;
   z-index: -1;
   content: "";
-  display: block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   opacity: 0;
   transition: all 1s;
+  box-shadow: 0 0 1000vw rgba(0,0,0,1) inset;
+  background-color: var(--color-unholy-red);
+  mix-blend-mode: color-burn;
+
+}
+.dark-overlay::after, .dark-overlay::before {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  content: "";
+  display: block;
+  transition: all 2s;
+  box-shadow: 0 0 1000vw rgba(0,0,0,1) inset;
+
 }
 .input-dark {
   position: absolute;
@@ -47,28 +171,82 @@ body {
   text-align: right;
   background-color: var(--color-main-dark);
   color: var(--color-main-light);
+  text-transform: lowercase;
+  transition: all 0.3s;
 }
-.input-dark:checked + .dark-overlay {
+.input-dark:checked ~ .input-dark-button {
+  background-color: var(--color-unholy-dark);
+  color: var(--color-unholy-red);
+}
+.input-dark:checked ~ .input-dark-button .input-dark-button__switchtext {
+  opacity: 0;
+  width: 0;
+  overflow: hidden;
+}
+.input-dark:checked ~ .dark-overlay {
   opacity: 1;
   z-index: 20;
 }
-h1,h2,h3,h4,h5,h6,blockquote {
-  font-family: 'IM Fell DW Pica', serif;
-  font-weight: 900;
+/* .input-dark:checked ~ .article {
+  background-image: url('../images/unholy_bg.jpg');
+} */
+.input-dark:checked ~ .article .section-holder, .input-dark:checked ~ .article .parralax {
+  mix-blend-mode: luminosity;
 }
-blockquote {
-  font-weight: 400;
-  padding: 0;
-  margin: 0;
+.input-dark:checked ~ .article .glitch::before, .input-dark:checked ~ .article .glitch::after, .input-dark:checked ~ .article .glitch-img__glitch {
+  display: block;
 }
-p {
-  max-width: 40rem;
+/* === BIRDS === */
+.bird {
+  position: absolute;
+  top: 200vh;
+  left: 20rem;
+  width: 100px;
+  height: 100px;
+  display: block;
+  pointer-events: none;
+  content: "";
+  z-index: 10;
+  transform: translateZ(30px) scale(1.1);
+  filter: blur(0.05px);
 }
-
-main {
-  height: 100vh;
-  background-color: var(--color-main);
-  transform-style: preserve-3d;
+.bird:nth-of-type(2) {
+  left: auto;
+  right: 20rem;
+  top: 150vh;
+  transform: translateZ(-10px);
+}
+.bird:nth-of-type(3) {
+  left: auto;
+  right: 20rem;
+  top: 370vh;
+  transform: translateZ(40px);
+}
+.bird:nth-of-type(3) {
+  left: auto;
+  right: 20rem;
+  top: 450vh;
+  transform: translateZ(-20px);
+}
+.bird:nth-of-type(3) {
+  left: auto;
+  right: 20rem;
+  top: 570vh;
+  transform: translateZ(20px);
+}
+.bird:nth-of-type(4) {
+  left: auto;
+  left: 20rem;
+  top: 40vh;
+  transform: translateZ(-30px);
+}
+.bird:nth-of-type(5) {
+  left: 20rem;
+  top: 430vh;
+  transform: translateZ(-30px);
+}
+.bird__path {
+  fill: var(--color-main-dark);
 }
 /* === GRID === */
 .grid__item {
@@ -160,18 +338,19 @@ main {
   background: var(--color-main-dark);
   color: var(--color-secondary);
   z-index: 1;
+  display: none;
 }
 .glitch::before {
   left: 7px; /*2px*/
   text-shadow: -1px 0 red;
   clip: rect(44px, 450px, 56px, 0);
-  animation: glitch-anim 2s infinite linear alternate-reverse;
+  animation: glitch-anim 1s infinite linear alternate-reverse;
 
 }
 .glitch::after {
   left: -3px; /*-2px*/
   text-shadow: -1px 0 blue;
-  animation: glitch-anim-2 3s infinite linear alternate-reverse;
+  animation: glitch-anim-2 1.5s infinite linear alternate-reverse;
 
 }
 
@@ -220,6 +399,7 @@ main {
   background-size: cover;
   background-repeat: no-repeat;
   animation: glitch-anim 1.5s infinite linear alternate-reverse;
+  display: none;
 }
 .glitch-img__glitch--secondary {
   animation: glitch-anim-2 2.5s infinite linear alternate-reverse;
@@ -259,84 +439,6 @@ main {
 .slider__slide {
   min-width: 100%;
   position: relative;
-  padding: 2rem;
-}
-
-/* === ARTICLE === */
-.article__header {
-  position: relative;
-}
-/* .article__header__scroll-button {
-  position: absolute;
-  top: 60%;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 2;
-}
-.article__header__scroll-button-input {
-  position: absolute;
-  left: -100vw;
-  pointer-events: none;
-} */
-.article__header__content-holder {
-  position: relative;
-  height: 90vh;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  transition: height 1s ease-in-out;
-}
-
-/* .article__header__scroll-button-input:checked + .article__header__content-holder {
-  height: 0;
-} */
-
-.article__section {
-  position: relative;
-  background-color: var(--color-main);
-  color: var(--color-secondary);
-  padding: 6rem 0 9rem;
-}
-.article__section::before {
-  content: "";
-  display: block;
-  position: absolute;
-  height: 5rem;
-  top: -2.5rem;
-  left: 0;
-  width: 100%;
-  background-color: var(--color-main);
-  transform: rotate(-2deg);
-}
-.article__section:nth-of-type(even) {
-  background-color: var(--color-main-light);
-  color: var(--color-main-dark);
-}
-.article__section:nth-of-type(even)::before {
-  background-color: var(--color-main-light);
-  transform: rotate(2deg);
-}
-.article__section-parralax-before::before {
-  top: -60vh;
-  background-color: transparent;
-  background-image: url('../images/bg/parralax_layer_section_bg.png');
-  background-position: center bottom;
-  background-size: cover;
-  background-repeat: no-repeat;
-  pointer-events: none;
-  width: calc(100vw + 4px);
-  left: -2px;
-  height: calc(60vh + 4px);
-  transform: rotate(0deg);
-}
-.article__section--full-height {
-  min-height: 100vh;
-}
-/* === FOOTER === */
-.footer {
-  text-align: center;
   padding: 2rem;
 }
 
