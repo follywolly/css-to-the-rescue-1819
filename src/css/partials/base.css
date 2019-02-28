@@ -1,0 +1,52 @@
+* {
+  box-sizing: border-box;
+}
+:root {
+  --color-main: #114154;
+  /* --color-main-dark: #08202a;
+  --color-main-light: #88a0a9; */
+  --color-secondary: #fff;
+  --color-unholy-dark: black;
+  --color-unholy-red: red;
+}
+body, html {
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: 'Niconne', serif;
+  font-size: 150%;
+}
+h1,h2,h3,h4,h5,h6,blockquote {
+  font-family: 'IM Fell DW Pica', serif;
+  font-weight: 900;
+}
+blockquote {
+  font-weight: 400;
+  padding: 0;
+  margin: 0;
+}
+p {
+  max-width: 40rem;
+  z-index: 10;
+}
+
+main {
+  height: 100vh;
+  background-color: var(--color-main);
+  transform-style: preserve-3d;
+}
+.footer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--color-main);
+  color: var(--color-secondary);
+}
+.footer__link {
+  color: var(--color-secondary);
+}
+.footer__link:visited {
+  color: var(--color-secondary);
+}

@@ -1,0 +1,52 @@
+/* === BIRDS === */
+.bird {
+  position: absolute;
+  top: 200vh;
+  left: 20rem;
+  width: 100px;
+  height: 100px;
+  display: block;
+  pointer-events: none;
+  content: "";
+  z-index: 10;
+  transform: translateZ(30px) scale(1.1);
+  filter: blur(0.05px);
+}
+.bird:nth-of-type(2) {
+  left: auto;
+  right: 20rem;
+  top: 150vh;
+  transform: translateZ(-10px);
+}
+.bird:nth-of-type(3) {
+  left: auto;
+  right: 20rem;
+  top: 370vh;
+  transform: translateZ(40px);
+}
+.bird:nth-of-type(3) {
+  left: auto;
+  right: 20rem;
+  top: 450vh;
+  transform: translateZ(-20px);
+}
+.bird:nth-of-type(3) {
+  left: auto;
+  right: 20rem;
+  top: 570vh;
+  transform: translateZ(20px);
+}
+.bird:nth-of-type(4) {
+  left: auto;
+  left: 20rem;
+  top: 40vh;
+  transform: translateZ(-30px);
+}
+.bird:nth-of-type(5) {
+  left: 20rem;
+  top: 430vh;
+  transform: translateZ(-30px);
+}
+.bird__path {
+  fill: var(--color-secondary);
+}

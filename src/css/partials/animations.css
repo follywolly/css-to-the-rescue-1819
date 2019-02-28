@@ -1,0 +1,72 @@
+
+/* === SCROLLTEXT === */
+.scrolltext {
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  display: flex;
+  transform: translateZ(25px) scale(0.75);
+}
+.scrolltext__list {
+  padding: 0;
+  display: inline-flex;
+  list-style-type: none;
+  justify-content: space-between;
+  animation: marquee 30s linear infinite
+}
+.scrolltext__list > * {
+  padding: 0 1.5rem;
+}
+
+
+
+/* === ANIMATIONS === */
+@keyframes marquee {
+    0% {
+        transform: translate(0,0)
+    }
+
+    100% {
+        transform: translate(-100%,0)
+    }
+}
+@keyframes glitch-anim {
+  0% {
+    clip-path: inset(51% 0 38% 0);
+  }
+  10% {
+    clip-path: inset(20% 0 69% 0);
+  }
+  32% {
+    clip-path: inset(76% 0 3% 0);
+  }
+  38% {
+    clip-path: inset(100% 0 78% 0);
+  }
+  /* 80% {
+    clip-path: inset(80% 0 13% 0);
+  } */
+  100% {
+    clip-path: inset(100% 0 100% 0);
+  }
+}
+@keyframes glitch-anim-2 {
+  0% {
+    clip-path: inset(11% 0 80% 0);
+  }
+  13% {
+    clip-path: inset(3% 0 92% 0);
+  }
+  27% {
+    clip-path: inset(89% 0 3% 0);
+  }
+  40% {
+    clip-path: inset(20% 0 30% 0);
+  }
+  /* 80% {
+    clip-path: inset(95% 0 1% 0);
+  } */
+  100% {
+    clip-path: inset(100% 0 100% 0);
+  }
+}

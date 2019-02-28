@@ -1,0 +1,20 @@
+/* === GRID === */
+.grid__item {
+  display: grid;
+  grid-template-columns: [full-start] minmax(0.5rem, 1fr) [main-start] minmax(1rem, 10rem) [content-start] minmax(16rem, 40rem) [content-end] minmax(1rem, 10rem) [main-end] minmax(0.5rem, 1fr) [full-end];
+}
+.grid__item > * {
+  grid-column: content;
+}
+.grid__child--full {
+  grid-column: full;
+}
+.grid__child--main {
+  grid-column: main;
+}
+.grid__child--left {
+  grid-column: 2 / span 2;
+}
+.grid__child--right {
+  grid-column: 3 / span 2;
+}
