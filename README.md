@@ -1,64 +1,97 @@
 # CSS to the Rescue @cmda-minor-web 18-19
 
-_This course is in English_
+# Summary
+A magazine article layout which features a holy mode and unholy mode.
+The holy mode is nice and peaceful while the unholy mode introduces.
 
-In this three week course you are going to create an innovative, pleasurable user experience by using CSS.
+![screenshot of demo](docs/week3.png)
 
-## Learning goals
-- _You understand the broader scope of CSS: You can show that CSS can be used for more than just styling web pages._
-- _You understand the progressive enhancement parts of CSS: You can show that you can use the cascade, inheritance and specificity in your project_
-- _You understand the interactive parts of CSS: Is the UX fully enhanced within in given CSS scope?_
-- _You have been experimenting: Have the learning goals been stretched?_
+# Live demo
+https://follywolly.github.io/css-to-the-rescue-1819/src/
 
-[Rubric](https://docs.google.com/spreadsheets/d/1Xv48MSiACNmnM6nXpGGUb8mJDC459uSaxJszO_zLEp8/edit?usp=sharing)
+# Table of contents
+1. [Assignment](#assignment)
+2. [Methodology](#methodology)
+3. [Restrictions](#restrictions)
 
-## Programm
+[License](#license)
 
-### Week 1 - 👁 C what you did there
+# Assignment
+_Magazine Layout with dark mode/light mode_
 
-[See all the details of week 1 here](week1/).
+I implemented a holy and unholy mode since it works well with the theme of the article.
+![screenshot of demo holy](docs/week3.png)
+![screenshot of demo unholy](docs/week3-unholy.png)
 
-Goals of this week: 
+# Methodology
+_BEM_
 
-- Be inspired
-- Understand the cascade, inheritance and specificity
-- Get going!
+BEM is a way of structuring your css selectors.
+It works as follows:
 
-<!-- [Opdrachten](https://drive.google.com/open?id=1OVhWQNaCgSluYviTKKWcApkyPd23xow1PiExb8GYANM) -->
+**B** lock (block)   
+**E** lement (block__element)    
+**M** odifier (block__element--modifier)  
 
-<!-- [Slides](https://drive.google.com/open?id=1Rjl9xqXoKniQSRJPdkU1O5YwWC33SJK8KiV0a-H_xZU) -->
+Let's take a block as example: a card .
+In your HTML it looks like this:
+```html
+<article class="card"> <!-- block -->
+  <img class="card__image" /> <!-- element -->
+  <div class="card__content"> <!-- element -->
+    <h3 class="card__title">Some title</h3> <!-- element -->
+    <p class="card__text">A small paragraph</p>
+    <p class="card__text card__text--bolder">A small paragraph, but bolder</p> <!--element with modifier -->
+  </div>
+</article>
+```
+As you can see, subchildren of block children don't take the class of their parent as a prefix: the block is the only prefix you get. So, no nested class names.
 
-### Week 2 - Create Stuff, 🙃 Smile 
+```css
+.card { /* block */
+  margin: 1rem;
+}
+.card__content { /* parent element */
+  padding: 1rem;
+}
+.card__text { /* child element */
+  font-weight: normal;
+  font-size: 1rem;
+  color: white;
+}
+.card__text--bolder { /* modifier */
+  font-weight: bolder;
+}
+```
 
-This week’s goals: Create stuff, break stuff, and learn from each other
+Or more concise in SCCS, like this:
+```scss
+.card { //block
+  margin: 1rem;
+  &__content { // parent element
+    padding: 1rem;
+  }
+  &__text { // child element
+    font-weight: normal;
+    font-size: 1rem;
+    color: white;
+    &--bolder { // modifier
+      font-weight: bolder;
+    }
+  }
+}
+```
 
-<!-- [Opdrachten](https://drive.google.com/open?id=1GMDTdW3LycAYpZSFI6gk_lrKrx8-zLWrNh69aaVEH5Y) -->
+# Restrictions
+- _Two colors_
+- _Responsive without media queries_
 
-<!-- [Slides](https://drive.google.com/open?id=1IqQeu1m0dQiSC_KCvrn8eencAgtYe7X6qT-gm0n9Bmc) -->
+## Two colors
+I used white and lightblue as the two main colors:
+when you switch to dark mode you get red and black.
 
-### Week 3 - 🎪 Show time
+## Responsive without media queries
+The site is fully functional on mobile.
 
-Goals: Blow us away
-
-<!-- [Opdrachten](https://drive.google.com/open?id=13pKQu72pshaEzKw9q5JHLa-aop85nMP6nDCdqioWjoQ) -->
-
-<!-- [Slides](https://drive.google.com/open?id=1BSzGYNLMgtHD4HRnK7f0DgyTv4Pg3xsQwD_eYNo7v0Y) -->
-
-
-<!-- Add a link to your live demo in Github Pages 🌐-->
-
-<!-- ☝️ replace this description with a description of your own work -->
-
-<!-- Add a nice image here at the end of the week, showing off your shiny frontend 📸 -->
-
-<!-- Maybe a table of contents here? 📚 -->
-
-<!-- How about a section that describes how to install this project? 🤓 -->
-
-<!-- ...but how does one use this project? What are its features 🤔 -->
-
-<!-- What external data source is featured in your project and what are its properties 🌠 -->
-
-<!-- Maybe a checklist of done stuff and stuff still on your wishlist? ✅ -->
-
-<!-- How about a license here? 📜 (or is it a licence?) 🤷 -->
+# License
+[MIT](LICENSE) @ [Folkert-Jan van der Pol](https://github.com/follywolly)
